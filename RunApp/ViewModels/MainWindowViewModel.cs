@@ -15,6 +15,8 @@ namespace RunApp.ViewModels
         private string user;
         private string status;
         private int steps;
+        private int avgsteps;
+
         public int Rank
         {
             get { return rank; }
@@ -36,16 +38,4 @@ namespace RunApp.ViewModels
             set => Set(ref steps, value);
         }
     }
-
-
-
-
-    //static void Main(string[] args)
-    //{
-    //    var persons = JsonConvert.DeserializeObject<List<Person>>(File.ReadAllText(@"json\day1.json"));
-    //    foreach (var item in persons)
-    //    {
-    //        Console.WriteLine(item.Print());
-    //    }
-    //}
 }

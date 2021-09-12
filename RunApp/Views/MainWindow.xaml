@@ -10,6 +10,26 @@
         <vm:MainWindowViewModel/>
     </Window.DataContext>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="293*"/>
+            <ColumnDefinition Width="508*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="115*"/>
+            <RowDefinition Height="102*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="13" Grid.ColumnSpan="2">
+            <DataGrid Width="100"/>
+
+        </StackPanel>
+        <DataGrid Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Path=Rank}" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Rank" Binding="{Binding rank}"/>
+                <DataGridTextColumn Header="User" Binding="{Binding user}"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding status}"/>
+                <DataGridTextColumn Header="Steps" Binding="{Binding steps}"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </Window>

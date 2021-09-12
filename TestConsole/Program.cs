@@ -2,6 +2,7 @@
 using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TestConsole
 {
@@ -11,20 +12,18 @@ namespace TestConsole
         {
             string[] files = Directory.GetFiles(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\data")));
             int days = files.Length;
-            List<Person> monthdata = new List<Person>();
+            List<DayPersonStatistic> data = new List<DayPersonStatistic>();
             for (int i = 0; i < files.Length; i++)
             {
-                var persons = JsonConvert.DeserializeObject<List<Person>>(File.ReadAllText(files[i]));
-                monthdata.AddRange(persons);
+                var DayPersonStatistics = JsonConvert.DeserializeObject<List<DayPersonStatistic>>(File.ReadAllText(files[i]));
+                data.AddRange(DayPersonStatistics);
             }
-            foreach (Person day in monthdata)
+            var sortedData = data.OrderBy(u => u.Rank);
+            foreach (DayPersonStatistic day in sortedData)
             {
                 Console.WriteLine(day.GetData());
             }
-            for(int i = 0; i < monthdata.Count; i++)
-            {
-                if()
-            }
+
             Console.ReadKey();
 
         }
