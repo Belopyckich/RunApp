@@ -3,6 +3,7 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
 
 namespace TestConsole
 {
@@ -12,19 +13,44 @@ namespace TestConsole
         {
             string[] files = Directory.GetFiles(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\data")));
             int days = files.Length;
-            List<DayPersonStatistic> data = new List<DayPersonStatistic>();
+            List<DayPersonStatistic> jsonData = new List<DayPersonStatistic>();
             for (int i = 0; i < files.Length; i++)
             {
                 var DayPersonStatistics = JsonConvert.DeserializeObject<List<DayPersonStatistic>>(File.ReadAllText(files[i]));
-                data.AddRange(DayPersonStatistics);
+                foreach(DayPersonStatistic person in DayPersonStatistics)
+                {
+                    person.Day = i + 1;
+                }
+                jsonData.AddRange(DayPersonStatistics);
             }
-            var sortedData = data.OrderBy(u => u.Rank);
-            foreach (DayPersonStatistic day in sortedData)
+            var enumerableData = jsonData.GroupBy(g => g.User).Select(i => new MonthPersonStatistic{ User = i.Key });
+            List<MonthPersonStatistic> finalData = new List<MonthPersonStatistic>();
+            int counter = 0;
+            foreach(var item in enumerableData)
             {
-                Console.WriteLine(day.GetData());
+                finalData.Add(new MonthPersonStatistic(item.User));
+                counter++;
             }
 
-            Console.ReadKey();
+            for (int j = 0; j < finalData.Count(); j++)
+            {
+                for (int i = 0; i < jsonData.Count(); i++)
+                {
+                    if (finalData[j].User == jsonData[i].User)
+                    {
+                        finalData[j].DayInfo.Add(new Day(jsonData[i].Day, jsonData[i].Rank, jsonData[i].Steps, jsonData[i].Status));
+                    }
+                }
+            }
+
+            foreach (var person in finalData)
+            {
+                Console.WriteLine(person.User);
+                for (int i = 0; i < person.DayInfo.Count(); i++)
+                {
+                    Console.WriteLine(person.DayInfo[i].GetDayData());
+                }
+            }
 
         }
     }
