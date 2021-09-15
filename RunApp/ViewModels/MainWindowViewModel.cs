@@ -13,7 +13,9 @@ namespace RunApp.ViewModels
     internal class MainWindowViewModel : ViewModel
     {
         public ObservableCollection<MonthPersonStatistic> Users { get;}
-        public MonthPersonStatistic Data { get; }
+
+        private MonthPersonStatistic selelectedGroup;
+        public MonthPersonStatistic SelectedGroup { get => selelectedGroup; set => Set(ref selelectedGroup, value); }
         public MainWindowViewModel()
         {
             #region Беру данные из json файлов
