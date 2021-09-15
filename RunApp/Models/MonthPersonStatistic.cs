@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
-namespace TestConsole
+namespace RunApp.Models
 {
-    [Serializable]
-    internal class MonthPersonStatistic : Person
+    class MonthPersonStatistic : Person
     {
         private int avgSteps;
         private int maxStep;
@@ -26,14 +26,22 @@ namespace TestConsole
             maxStep = default(int);
             minStep = default(int);
         }
+
+        public MonthPersonStatistic(string Name, int AvgSteps, int MaxStep, int MinStep)
+        {
+            User = Name;
+            avgSteps = AvgSteps;
+            maxStep = MaxStep;
+            minStep = MinStep;
+
+        }
         public MonthPersonStatistic(string name) : this()
         {
             User = name;
         }
-        public virtual string GetData()
+        public override string ToString()
         {
             return $"user: {User}, avgSteps: {avgSteps}, maxStep: {maxStep}, minStep: {minStep}";
         }
     }
 }
-

@@ -41,17 +41,22 @@ namespace TestConsole
                         finalData[j].DayInfo.Add(new Day(jsonData[i].Day, jsonData[i].Rank, jsonData[i].Steps, jsonData[i].Status));
                     }
                 }
+                finalData[j].AvgSteps = (int)(Math.Round(finalData[j].DayInfo.Average(p => p.steps)));
+                finalData[j].MaxStep = finalData[j].DayInfo.Max(p => p.steps);
+                finalData[j].MinStep = finalData[j].DayInfo.Min(p => p.steps);
             }
 
             foreach (var person in finalData)
             {
-                Console.WriteLine(person.User);
-                for (int i = 0; i < person.DayInfo.Count(); i++)
+                if(person.User == "Тринуликов Сергей")
                 {
-                    Console.WriteLine(person.DayInfo[i].GetDayData());
+                    Console.WriteLine(person.GetData());
+                    for (int i = 0; i < person.DayInfo.Count(); i++)
+                    {
+                        Console.WriteLine(person.DayInfo[i].GetDayData());
+                    }
                 }
             }
-
         }
     }
 }

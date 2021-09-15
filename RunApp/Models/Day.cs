@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestConsole
+namespace RunApp.Models
 {
     public class Day
     {
@@ -31,6 +31,9 @@ namespace TestConsole
             this.steps = Steps;
             this.status = Status;
         }
+
+
+
         public virtual string GetDayData()
         {
             return $"key: {key}, rank: {rank}, steps: {steps}, status: {status}";
